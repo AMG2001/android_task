@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class DBManager {
     DBHelper dbHelper;
@@ -28,15 +31,35 @@ public class DBManager {
         cv.put("section",section);
       long x =  dbManager.insert(table_name,null,cv);
        dbHelper.close();
-       return  x;
+         return  x;
     }
 
     Cursor display(){
         dbManager=dbHelper.getWritableDatabase();
         Cursor cursor = dbManager.rawQuery("select * from students",null);
-
+//       dbHelper.close();
         return cursor;
     }
 
+        void updateStudentInfo(String id,String name,String section){
+        dbManager=dbHelper.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put("name",name);
+        cv.put("section",section);
+       long x = dbManager.update(table_name,cv,"id=?",new String[]{id});
+       if(x>=1) Toast.makeText(context, "record updated", Toast.LENGTH_SHORT).show();
+       else Toast.makeText(context, "id : "+id +" record not updated", Toast.LENGTH_SHORT).show();
+//       dbHelper.close();
+
+    }
+
+    long deleteStudent(String name){
+        dbManager=dbHelper.getWritableDatabase();
+          long x = dbManager.delete(table_name,"name = ?",new String[]{name});
+        if(x>=1) Toast.makeText(context, "recored deleted", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(context, "not deleted !!", Toast.LENGTH_SHORT).show();
+        dbHelper.close();
+        return x;
+    }
 
 }

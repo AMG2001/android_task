@@ -12,25 +12,23 @@ public class DBManager {
     DBHelper dbHelper;
     SQLiteDatabase dbManager;
     Context context;
-    static  String DB_NAME="accounts";
+    static  String DB_NAME="students";
     static int DB_VERSION = 1;
-    static  String table_name="accounts";
+    static  String table_name="students";
     static  String column_id="id";
     static String column_name="name";
-    static  String column_job="job";
-    static  String column_salary="salary";
+    static  String column_section="section";
 
     DBManager(Context context,DBHelper dbHelper){
         this.context=context;
         this.dbHelper=dbHelper;
     }
 
-    long insert(String name,String job,String salary){
+    long insert(String name,String section){
        dbManager= dbHelper.getWritableDatabase();
         ContentValues cv=new ContentValues();
         cv.put("name",name);
-        cv.put("job",job);
-        cv.put("salary",salary);
+        cv.put("section",section);
       long x =  dbManager.insert(table_name,null,cv);
        dbHelper.close();
          return  x;
@@ -38,17 +36,16 @@ public class DBManager {
 
     Cursor display(){
         dbManager=dbHelper.getWritableDatabase();
-        Cursor cursor = dbManager.rawQuery("select * from accounts",null);
+        Cursor cursor = dbManager.rawQuery("select * from students",null);
 //       dbHelper.close();
         return cursor;
     }
 
-        long updateStudentInfo(String name,String job,String salary){
+        long updateStudentInfo(String name,String section){
         dbManager=dbHelper.getWritableDatabase();
-            ContentValues cv=new ContentValues();
-            cv.put("name",name);
-            cv.put("job",job);
-            cv.put("salary",salary);
+        ContentValues cv=new ContentValues();
+        cv.put("name",name);
+        cv.put("section",section);
        long x = dbManager.update(table_name,cv,"name=?",new String[]{name});
        dbHelper.close();
 return  x;

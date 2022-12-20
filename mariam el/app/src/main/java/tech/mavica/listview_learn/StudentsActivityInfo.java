@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class StudentsActivityInfo extends AppCompatActivity {
@@ -16,8 +15,7 @@ Button btn_delete;
 Button btn_update;
 Button btn_insert;
 EditText et_name;
-    EditText et_job;
-    EditText et_salary;
+EditText et_section;
 String id;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -27,8 +25,7 @@ String id;
 
 
         et_name=findViewById(R.id.et_name);
-        et_job=findViewById(R.id.et_job);
-        et_salary=findViewById(R.id.et_salary);
+        et_section=findViewById(R.id.et_section);
         btn_insert=findViewById(R.id.btn_insert);
         btn_update=findViewById(R.id.btn_update);
         btn_delete=findViewById(R.id.btn_delete);
@@ -36,8 +33,8 @@ String id;
         id=intent.getStringExtra("id");
         Toast.makeText(this, "getted id in intent : "+id, Toast.LENGTH_SHORT).show();
         et_name.setText(intent.getStringExtra("name"));
-        et_job.setText(intent.getStringExtra("job"));
-        et_salary.setText(intent.getStringExtra("salary"));
+        et_section.setText(intent.getStringExtra("section"));
+
     }
 
     public void deleteStudent(View view){
@@ -47,12 +44,12 @@ String id;
     }
 
     public void updateStudentInfo(View view){
-    MainActivity.dbManager.updateStudentInfo(et_name.getText().toString(),et_job.getText().toString(),et_salary.getText().toString());
+    MainActivity.dbManager.updateStudentInfo(et_name.getText().toString(),et_section.getText().toString());
         startActivity(new Intent(this,MainActivity.class));
     }
 
     public void insertStudent(View view){
-        MainActivity.dbManager.insert(et_name.getText().toString(),et_job.getText().toString(),et_salary.getText().toString());
+        MainActivity.dbManager.insert(et_name.getText().toString(),et_section.getText().toString());
         startActivity(new Intent(this,MainActivity.class));
     }
 }

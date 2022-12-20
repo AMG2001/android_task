@@ -12,14 +12,12 @@ import java.util.ArrayList;
 public class CustomAdapter extends BaseAdapter {
     Context context;
     ArrayList<String> names;
-    ArrayList<String> jobs;
-    ArrayList<String> salaries;
+    ArrayList<String> sections;
     LayoutInflater infalter;
-    public  CustomAdapter(Context context,ArrayList<String> names,ArrayList<String> jobs,ArrayList<String> salaries){
+    public  CustomAdapter(Context context,ArrayList<String> names,ArrayList<String> sections){
         this.context=context;
         this.names=names;
-        this.jobs=jobs;
-        this.salaries=salaries;
+        this.sections=sections;
         infalter=LayoutInflater.from(context);
     }
 
@@ -42,11 +40,9 @@ public class CustomAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView=infalter.inflate(R.layout.list_item,null);
         TextView tv_name = convertView.findViewById(R.id.tv_name);
-        TextView tv_job = convertView.findViewById(R.id.tv_job);
-        TextView tv_salary=convertView.findViewById(R.id.tv_salary);
+        TextView tv_section = convertView.findViewById(R.id.tv_section);
         tv_name.setText(names.get(position));
-        tv_job.setText(jobs.get(position));
-        tv_salary.setText(salaries.get(position));
+        tv_section.setText(sections.get(position));
         return convertView;
     }
 }

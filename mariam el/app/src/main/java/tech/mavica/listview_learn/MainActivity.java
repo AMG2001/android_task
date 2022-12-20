@@ -16,11 +16,9 @@ import java.util.Collection;
 public class MainActivity extends AppCompatActivity {
 
 static ArrayList<String> names=new ArrayList<>();
-
-static ArrayList<String> jobs=new ArrayList<>();
-
-static ArrayList<String> salaries=new ArrayList<>();
-
+//        {"Mohamad","Mohamad","Mohamad","Mohamad","Mohamad","Mohamad"};
+static ArrayList<String> sections=new ArrayList<>();
+        //{"Cs","Cs","Cs","Cs","Cs","Cs"};
 static ListView list;
 static DBManager dbManager;
 static DBHelper dbHelper;
@@ -32,11 +30,9 @@ static DBHelper dbHelper;
         list=findViewById(R.id.listview);
         dbHelper=new DBHelper(this);
         dbManager=new DBManager(this,dbHelper);
-//        dbManager.insert("alaa hammad","Software engineer","800");
-//        dbManager.insert("alaa hammad 2","Software engineer","800");
-//        dbManager.insert("alaa hammad 3","Software engineer","800");
-       refreshUI(dbManager.display());
-        CustomAdapter adapter = new CustomAdapter(this,names,jobs,salaries);
+
+        refreshUI(dbManager.display());
+        CustomAdapter adapter = new CustomAdapter(this,names,sections);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -45,8 +41,7 @@ static DBHelper dbHelper;
                 Toast.makeText(MainActivity.this, "sent id : "+i, Toast.LENGTH_SHORT).show();
                 intent.putExtra("id",""+i);
                 intent.putExtra("name",names.get(i));
-                intent.putExtra("job",jobs.get(i));
-                intent.putExtra("salary",salaries.get(i));
+                intent.putExtra("section",sections.get(i));
                 startActivity(intent);
                 }
         });
@@ -54,12 +49,10 @@ static DBHelper dbHelper;
 
     void refreshUI(Cursor c) {
         names.clear();
-        jobs.clear();
-        salaries.clear();
+        sections.clear();
    while(c.moveToNext()){
        names.add(c.getString(1));
-       jobs.add(c.getString(2));
-       salaries.add(c.getString(3));
+       sections.add(c.getString(2));
    }
 
     }
